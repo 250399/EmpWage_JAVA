@@ -7,25 +7,58 @@ import java.lang.reflect.Array;
 class EmployeeWage{
     static Scanner sc = new Scanner(System.in);
     static Map<String,Integer> companyWages = new HashMap<String,Integer>();
-    // static ArrayList<Companies> companiesArray = new ArrayList<>();
-    static Companies companiesArray[];
+    static ArrayList<Companies> companiesArray = new ArrayList<>();
+    
     public static void main(String[] args) {
-
-        System.out.println("1.Add company 2.Exit");
-        int choice = sc.nextInt();
-        switch(choice){
-            case 1: addCompany();
-                break;
-            case 2:System.exit(1);
-            default:System.out.println("Invalid choice");
+        while(true){
+            System.out.println("1.Add company \n2.Renove company\n3.Compute Wages for companies \n4.Print Wages for companies \n5.Exit");
+            int choice = sc.nextInt();
+            switch(choice){
+                case 1: 
+                    addCompany();
+                    break;
+                case 2:
+                    removeCompany();
+                    break;
+                case 3:
+                    computeWages();
+                    break;
+                case 4:
+                    printCompanyWages();
+                    break;
+                case 5:
+                    System.exit(1);
+                default:
+                    System.out.println("Invalid choice");
+            }
         }
+    }
 
+    static void removeCompany(){
+        if(companiesArray.size()==0){
+            System.out.println("No companies in array. Please add some first!");
+            return;
+        }
+        String name="";
+        System.out.println("Enter company name to delete");
+        name=sc.next();
+        for(int index=0;index<companiesArray.size();index++){
+            if((companiesArray.get(index).companyName.toString().toLowerCase().equals(name.toLowerCase()))){
+                companyWages.remove(companiesArray.get(index).companyName);
+                companiesArray.remove(index);
 
-        // Companies CompanyOne = new Companies(20,8,20,100,"Reliance");
-        // computeEmployeeWage(CompanyOne.companyName, CompanyOne.FULL_DAY_HOUR,CompanyOne.TOTAL_WORKING_HOURS,CompanyOne.WORKING_DAY_IN_MONTH,CompanyOne.WAGE_PER_HOUR);
-        // Companies CompanyTwo = new Companies(20,8,20,100,"BL");
-        // computeEmployeeWage(CompanyTwo.companyName, CompanyTwo.FULL_DAY_HOUR,CompanyTwo.TOTAL_WORKING_HOURS,CompanyTwo.WORKING_DAY_IN_MONTH,CompanyTwo.WAGE_PER_HOUR);
-        printCompanyWages();
+            }
+        }
+        System.out.println("Removed Company :"+name);
+    }
+
+    static void computeWages(){
+        if(companyWages.size()==companiesArray.size()){
+            System.out.println("Add new companies for evaluatuion");
+            return;
+        }
+        for(int index=companyWages.size();index<companiesArray.size();index++)
+            computeEmployeeWage(companiesArray.get(index).companyName,companiesArray.get(index).FULL_DAY_HOUR,companiesArray.get(index).TOTAL_WORKING_HOURS,companiesArray.get(index).WORKING_DAY_IN_MONTH,companiesArray.get(index).WAGE_PER_HOUR);
     }
 
     static void addCompany(){
@@ -34,28 +67,24 @@ class EmployeeWage{
         int hoursInDay;
         int totalHours;
         String name="";
-        int numberOfCompanies;
-        System.out.println("Enter number of companies you want to add");
-        numberOfCompanies=sc.nextInt();
-        companiesArray= new Companies[numberOfCompanies];
-        for(int companyIndex=0;companyIndex<numberOfCompanies;companyIndex++){
-            System.out.println("Enter name of Company");
-            name=sc.next();
-            System.out.println("Enter wage per hour");
-            wage=sc.nextInt();
-            System.out.println("Enter total days");
-            totalDays=sc.nextInt();
-            System.out.println("Enter hours per day");
-            hoursInDay=sc.nextInt();
-            System.out.println("Enter total hours in month");
-            totalHours=sc.nextInt();
-            companiesArray[companyIndex]=new Companies(wage,hoursInDay,totalDays,totalHours,name);
-            computeEmployeeWage(companiesArray[companyIndex].companyName,companiesArray[companyIndex].FULL_DAY_HOUR,companiesArray[companyIndex].TOTAL_WORKING_HOURS,companiesArray[companyIndex].WORKING_DAY_IN_MONTH,companiesArray[companyIndex].WAGE_PER_HOUR);
-            
-        }
+        System.out.println("Enter name of Company");
+        name=sc.next();
+        System.out.println("Enter wage per hour");
+        wage=sc.nextInt();
+        System.out.println("Enter total days");
+        totalDays=sc.nextInt();
+        System.out.println("Enter hours per day");
+        hoursInDay=sc.nextInt();
+        System.out.println("Enter total hours in month");
+        totalHours=sc.nextInt();
+        companiesArray.add(new Companies(wage,hoursInDay,totalDays,totalHours,name));
     }
+    
     static void printCompanyWages(){
-        companyWages.forEach((company,wage)->System.out.println("Total wage for company: "+company+" is: "+wage));
+        if(companyWages.size()==0){
+            System.out.println("Please add some companies first");
+        }else
+            companyWages.forEach((company,wage)->System.out.println("Total wage for company: "+company+" is: "+wage));
     }
     static void computeEmployeeWage(String companyName, int FULL_DAY_HOUR,int TOTAL_WORKING_HOURS, int WORKING_DAY_IN_MONTH,int WAGE_PER_HOUR){
         int dailyHours=0;
@@ -83,7 +112,6 @@ class EmployeeWage{
         }
         companyWages.put(companyName,(WAGE_PER_HOUR*monthlyHours));
     }
-
 }
 
 class Companies{
