@@ -1,17 +1,22 @@
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.Math;
 class EmployeeWage{
     static Scanner sc = new Scanner(System.in);
-
+    static Map<String,Integer> companyWages = new HashMap<String,Integer>();
     public static void main(String[] args) {
         Companies CompanyOne = new Companies(20,8,20,100,"Reliance");
         computeEmployeeWage(CompanyOne.companyName, CompanyOne.FULL_DAY_HOUR,CompanyOne.TOTAL_WORKING_HOURS,CompanyOne.WORKING_DAY_IN_MONTH,CompanyOne.WAGE_PER_HOUR);
         Companies CompanyTwo = new Companies(20,8,20,100,"BL");
         computeEmployeeWage(CompanyTwo.companyName, CompanyTwo.FULL_DAY_HOUR,CompanyTwo.TOTAL_WORKING_HOURS,CompanyTwo.WORKING_DAY_IN_MONTH,CompanyTwo.WAGE_PER_HOUR);
+        printCompanyWages();
     }
 
-    
+    static void printCompanyWages(){
+        companyWages.forEach((company,wage)->System.out.println("Total wage for company: "+company+" is: "+wage));
+    }
     static void computeEmployeeWage(String companyName, int FULL_DAY_HOUR,int TOTAL_WORKING_HOURS, int WORKING_DAY_IN_MONTH,int WAGE_PER_HOUR){
         int dailyHours=0;
         int monthlyHours=0;
@@ -36,8 +41,7 @@ class EmployeeWage{
             days++;
             monthlyHours+=dailyHours;
         }
-        System.out.println("Monthly employee wage for company "+companyName + "is: "+(WAGE_PER_HOUR*monthlyHours));
- 
+        companyWages.put(companyName,(WAGE_PER_HOUR*monthlyHours));
     }
 
 }
