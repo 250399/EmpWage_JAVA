@@ -6,10 +6,13 @@ class EmployeeWage{
 		final int WAGE_PER_HOUR = 20;
 		final int FULL_DAY_HOUR = 8;
 		final int WORKING_DAY_IN_MONTH=20;
+        final int TOTAL_WORKING_HOURS=100;
         int dailyHours=0;
         int monthlyHours=0;
-        
-        for(int i=0;i<WORKING_DAY_IN_MONTH;i++){       
+        int hours=0;
+        int days=0;
+
+        while( hours <= TOTAL_WORKING_HOURS || days <= WORKING_DAY_IN_MONTH ){       
             dailyHours=0;
             int employeeCheck = (int) Math.round(Math.random()*10)%3;
             switch (employeeCheck){
@@ -20,8 +23,10 @@ class EmployeeWage{
                 dailyHours=FULL_DAY_HOUR/2+dailyHours;
                 break;
             default:
-                
+                dailyHours+=0;                
         }
+        hours+=dailyHours;
+        days++;
         monthlyHours+=dailyHours;
     }
 		System.out.println("Employee daily wage is "+(WAGE_PER_HOUR * monthlyHours ));   }
