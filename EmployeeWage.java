@@ -11,7 +11,7 @@ class EmployeeWage{
     
     public static void main(String[] args) {
         while(true){
-            System.out.println("1.Add company \n2.Renove company\n3.Compute Wages for companies \n4.Print Wages for companies 5. display dailywage along with total wage\n6.Exit");
+            System.out.println("1.Add company \n2.Renove company\n3.Compute Wages for companies \n4.Print Wages for companies \n5. display dailywage along with total wage\n6.Exit");
             int choice = sc.nextInt();
             switch(choice){
                 case 1: 
