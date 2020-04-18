@@ -11,25 +11,21 @@ class EmployeeWage{
     
     public static void main(String[] args) {
         while(true){
-            System.out.println("1.Add company \n2.Renove company\n3.Compute Wages for companies \n4.Print Wages for companies 5. display dailywage along with total wage\n6.Exit");
+            System.out.println("1.Add company \n2.Renove company\n 3. display dailywage along with total wage\n4.Exit");
             int choice = sc.nextInt();
             switch(choice){
                 case 1: 
                     addCompany();
+                    computeWages();
+                    printCompanyWages();
                     break;
                 case 2:
                     removeCompany();
                     break;
                 case 3:
-                    computeWages();
-                    break;
-                case 4:
-                    printCompanyWages();
-                    break;
-                case 5:
                     printDailyandTotalWage();
                 break;
-                case 6:
+                case 4:
                     System.exit(1);
                 default:
                     System.out.println("Invalid choice");
@@ -95,6 +91,7 @@ class EmployeeWage{
         System.out.println("Enter total hours in month");
         totalHours=sc.nextInt();
         companiesArray.add(new Companies(wage,hoursInDay,totalDays,totalHours,name));
+
     }
     
     static void printCompanyWages(){
@@ -139,11 +136,10 @@ class EmployeeWage{
 }
 
 class Companies{
-    HashMap<Integer,Integer> dailyAndTotalWage = new HashMap<>();
-    final int WAGE_PER_HOUR ;
-    final int FULL_DAY_HOUR ;
-    final int WORKING_DAY_IN_MONTH;
-    final int TOTAL_WORKING_HOURS;
+    int WAGE_PER_HOUR ;
+    int FULL_DAY_HOUR ;
+    int WORKING_DAY_IN_MONTH;
+    int TOTAL_WORKING_HOURS;
     String companyName;
     ArrayList<Integer> dailywages;
     int totalwage;
